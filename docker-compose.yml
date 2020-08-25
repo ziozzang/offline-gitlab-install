@@ -1,1 +1,23 @@
-#
+version: '2'
+services:
+  gitlab-ce:
+    restart: always
+    image: gitlab/gitlab-ce:latest
+    #-cracked
+    container_name: gitlab-ce
+    hostname: some.domains
+    volumes:
+      - /opt/gitlab/config:/etc/gitlab
+      - /opt/gitlab/logs:/var/log/gitlab
+      - /opt/gitlab/data:/var/opt/gitlab
+      #- /var/run/docker.sock:/var/run/docker.sock
+    #environment:
+    #  ASDF: 50001
+    ports:
+      - "8080:80"
+      - "8081:8081"
+    privileged: true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
